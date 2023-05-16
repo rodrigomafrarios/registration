@@ -4,11 +4,10 @@ import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 
 import { RegistrationStack } from '../lib/registration-stack';
-import { InviteStack } from '../lib/invite-stack';
+import { GraphqlStack } from '../lib/graphql-stack';
 import { GlobalStack } from '../lib/global-stack';
 
 const app = new cdk.App();
-
 
 const { userPool } = new RegistrationStack(app, 'RegistrationStack', {
   identityProviders: {},
@@ -18,16 +17,15 @@ const { userPool } = new RegistrationStack(app, 'RegistrationStack', {
   }
 });
 
-const { globalTable, graphqlApi } = new GlobalStack(app, "GlobalStack", {
-  userPool,
+const { globalTable } = new GlobalStack(app, "GlobalStack", {
   env: {
     region: "eu-central-1"
   }
 })
 
-new InviteStack(app, "InviteStack", {
+new GraphqlStack(app, "GraphqlStack", {
   globalTable,
-  graphqlApi,
+  userPool,
   env: {
     region: "eu-central-1"
   }

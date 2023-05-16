@@ -1,0 +1,18 @@
+type Query {
+    invite(id: ID!): Invite
+}
+
+input InviteInput {
+    invitee: String!
+}
+
+type Mutation {
+    createInvite(invite: InviteInput!): Invite
+}
+
+type Invite {
+    id: ID!
+    invitee: String!
+    hash: String!
+    createdAt: String!
+}

@@ -1,7 +1,7 @@
 overwrite: true
 schema:
-  - schema.graphql
-  - appsync.graphql
+  - ./src/graphql/appsync.graphql
+  - ./src/graphql/schema.graphql
 
 config:
   scalars:
@@ -14,8 +14,7 @@ config:
     AWSURL: string
     AWSPhone: string
     AWSIPAddress: string
-
 generates:
-  appsync.d.ts:
+  ./src/graphql/appsync.d.ts:
     plugins:
       - typescript

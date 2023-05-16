@@ -161,7 +161,7 @@ export class RegistrationStack extends Stack {
     const preSignUpHook = new NodejsFunction(this, "PreSignupHook", {
       entry: path.join(
         __dirname,
-        "../src/auth/pre-signup-trigger.ts"
+        "./resources/auth/pre-signup-trigger.ts"
       ),
       handler: "handler",
     })
