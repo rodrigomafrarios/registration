@@ -1,5 +1,5 @@
 const { pathsToModuleNameMapper } = require('ts-jest')
-const { compilerOptions } = require('./tsconfig')
+const { compilerOptions } = require('./tsconfig.json')
 const { defaults: tsjPreset } = require('ts-jest/presets')
 
 module.exports = {
@@ -12,7 +12,8 @@ module.exports = {
     '^.+\\.tsx?$': 'ts-jest'
   },
   setupFilesAfterEnv: ["./test-utils/setup.ts"],
-  // moduleNameMapper: {
-  //   ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: "<rootDir>" }),
-  // },
+  moduleNameMapper: {
+    ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: "<rootDir>" }),
+    "@stub": ["<rootDir>/test-utils/stub"]
+  },
 };

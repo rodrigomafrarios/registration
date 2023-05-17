@@ -6,26 +6,26 @@ import { Table } from 'aws-cdk-lib/aws-dynamodb';
 import { Stack, StackProps } from 'aws-cdk-lib';
 
 import path = require('path');
-interface InviteNestedStackProps extends StackProps {
+interface InvitationNestedStackProps extends StackProps {
   globalTable: Table
   senderEmail: string
 }
 
-export class InviteNestedStack extends Stack {
+export class InvitationNestedStack extends Stack {
 
-  public createInviteFunction: NodejsFunction
+  public createInvitationFunction: NodejsFunction
 
-  constructor(scope: Construct, id: string, props: InviteNestedStackProps) {
+  constructor(scope: Construct, id: string, props: InvitationNestedStackProps) {
     super(scope, id, props)
 
     const { senderEmail, globalTable } = props
 
-    this.createInviteFunction = new NodejsFunction(this, "CreateInvite", {
+    this.createInvitationFunction = new NodejsFunction(this, "CreateInvitation", {
       entry: path.join(
         __dirname,
-        "../../../src/graphql/resolvers/invite/create-invite.ts"
+        "../../../src/graphql/resolvers/invitation/create-invitation.ts"
       ),
-      handler: "createInvite",
+      handler: "createInvitation",
       runtime: Runtime.NODEJS_18_X,
       environment: {
         GLOBAL_TABLE: globalTable.tableName,
@@ -34,7 +34,7 @@ export class InviteNestedStack extends Stack {
     })
 
     // as a pre requisite you should already have an config set
-    this.createInviteFunction.addToRolePolicy(
+    this.createInvitationFunction.addToRolePolicy(
       new PolicyStatement({
         effect: Effect.ALLOW,
         actions: [

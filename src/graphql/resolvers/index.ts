@@ -1,8 +1,8 @@
-import { createInvite } from './invite';
+import { createInvitation } from './invitation';
 
 const resolvers = {
   Mutation: {
-    createInvite
+    createInvitation
   }
 }
 

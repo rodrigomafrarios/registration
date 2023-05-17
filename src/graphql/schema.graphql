@@ -1,16 +1,16 @@
 type Query {
-    invite(id: ID!): Invite
+    invitation(id: ID!): Invitation
 }
 
-input InviteInput {
+input InvitationInput {
     invitee: String!
 }
 
 type Mutation {
-    createInvite(invite: InviteInput!): Invite
+    createInvitation(invitation: InvitationInput!): Invitation
 }
 
-type Invite {
+type Invitation {
     id: ID!
     invitee: String!
     hash: String!

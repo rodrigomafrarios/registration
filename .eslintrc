@@ -1,0 +1,29 @@
+{
+	"root": true,
+	"parser": "@typescript-eslint/parser",
+	"extends": ["airbnb-typescript/base", "prettier"],
+	"parserOptions": {
+		"project": "./tsconfig.json"
+	},
+	"rules": {
+		"import/order": "error",
+		"import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+		"operator-linebreak": [2, "before", { "overrides": { "?": "after" } }]
+	},
+	"@typescript-eslint/naming-convention": [
+		"error",
+		{
+			"selector": "variable",
+			"format": ["camelCase", "PascalCase", "UPPER_CASE"],
+			"leadingUnderscore": "allowSingleOrDouble",
+			"trailingUnderscore": "allow"
+		}
+	],
+	"@typescript-eslint/no-shadow": "off",
+	"@typescript-eslint/dot-notation": "off",
+	"@typescript-eslint/no-implied-eval": "off",
+	"@typescript-eslint/no-throw-literal": "off",
+	"@typescript-eslint/return-await": "off",
+	"@typescript-eslint/no-use-before-define": ["error", { "functions": false }],
+	"import/order": "error"
+}

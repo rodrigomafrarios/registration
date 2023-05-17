@@ -4,7 +4,7 @@ import { UserPool } from 'aws-cdk-lib/aws-cognito';
 import { AuthorizationType, GraphqlApi, SchemaFile } from 'aws-cdk-lib/aws-appsync';
 import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
 
-import { InviteNestedStack } from './resources/invite/invite-nested-stack';
+import { InvitationNestedStack } from './resources/invitation/invitation-nested-stack';
 
 import path = require('path');
 interface GraphqlStackProps extends StackProps {
@@ -20,8 +20,8 @@ export class GraphqlStack extends Stack {
 
     const senderEmail = "rodrigomafrarios@gmail.com"
 
-    const { createInviteFunction } = new InviteNestedStack(this, "InviteNestedStack", { ...props, senderEmail })
-    globalTable.grantReadWriteData(createInviteFunction)
+    const { createInvitationFunction } = new InvitationNestedStack(this, "InvitationNestedStack", { ...props, senderEmail })
+    globalTable.grantReadWriteData(createInvitationFunction)
 
     const graphqlApi = new GraphqlApi(this, "graphql-api-id", {
       name: "graphql-api-registration",
@@ -37,10 +37,10 @@ export class GraphqlStack extends Stack {
       xrayEnabled: true,
     })
 
-    graphqlApi.createResolver("MutationcreateInviteResolver", {
+    graphqlApi.createResolver("MutationcreateInvitationResolver", {
       typeName: 'Mutation',
-      fieldName: 'createInvite',
-      dataSource: graphqlApi.addLambdaDataSource("createInviteDatasource", createInviteFunction, { name: "MutationcreateInviteResolver" })
+      fieldName: 'createInvitation',
+      dataSource: graphqlApi.addLambdaDataSource("createInvitationDatasource", createInvitationFunction, { name: "MutationcreateInvitationResolver" })
     })
 
     // Prints out the AppSync GraphQL endpoint to the terminal
